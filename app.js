@@ -1,3 +1,4 @@
+const os = require("os");
 const express = require("express");
 const router = express.Router();
 const path = require("path");
@@ -7,7 +8,9 @@ const cookieParser = require("cookie-parser");
 const bodyParser = require("body-parser");
 const swaggerUi = require("swagger-ui-express");
 const swaggerJSDoc = require("swagger-jsdoc");
-const swaggerJSDocOpts = require("./docs/options.js");
+const getSwaggerJSDocOpts = require("./docs/options.js");
+
+const swaggerJSDocOpts = getSwaggerJSDocOpts(process.env.NODE_ENV);
 
 const app = express();
 const swaggerSpec = swaggerJSDoc(swaggerJSDocOpts);
@@ -39,8 +42,8 @@ app.use(function(err, req, res, next) {
   res.render("error");
 });
 
-var port = process.env.PORT || "3000";
-
+const port = process.env.PORT || "3000";
 app.listen(port);
+console.info(`App is running on  http://localhost:${port}`);
 
 module.exports = app;

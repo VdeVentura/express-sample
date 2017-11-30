@@ -1,15 +1,17 @@
-var options = {
-  swaggerDefinition: {
-    info: {
-      title: "JobChat API",
-      description: "Endpoints provided by JobChat's API.",
-      version: "1.0"
+var options = (env = "development") => {
+  return {
+    swaggerDefinition: {
+      info: {
+        title: "JobChat API",
+        description: "Endpoints provided by JobChat's API.",
+        version: "1.0"
+      },
+      schemes: env == "production" ? ["https"] : ["http", "https"],
+      basePath: "/api",
+      produces: ["application/json"]
     },
-    schemes: ["http", "https"],
-    basePath: "/api",
-    produces: ["application/json"]
-  },
-  apis: ["./routes/foo.js"]
+    apis: ["./routes/foo.js"]
+  };
 };
 
 module.exports = options;
